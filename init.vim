@@ -10,45 +10,42 @@
 
 
 
-call plug#begin()
+call plug#begin('~/.config/nvim/plugged')
+
+  " Neoclide
+  Plug 'neoclide/coc.nvim', {'branch': 'release'}
+
   " Snippets
   Plug 'sirver/UltiSnips'
 
-  " Highlight the copied text
-  Plug 'machakann/vim-highlightedyank'
-
-  " Surround
-  Plug 'tpope/vim-surround'
-
-  " Paste with indentation
-  Plug 'sickill/vim-pasta'
-
-  " Autocomplete (, [, {
-  Plug 'jiangmiao/auto-pairs'
-
-  " Best behaviour of %
-  Plug 'adelarsq/vim-matchit'
-
-  " Repeat plugin actions
-  Plug 'tpope/vim-repeat'
-
-  " JS & JSX syntax
-
-  Plug 'pangloss/vim-javascript'
+  " Nerd tree
+  Plug 'scrooloose/nerdtree'
+  Plug 'ryanoasis/vim-devicons'
+  Plug 'tiagofumo/vim-nerdtree-syntax-highlight'
+  
+  " Colorscheme
+  Plug 'morhetz/gruvbox'
 
   " Preview markdown
   Plug 'iamcco/markdown-preview.nvim', { 'do': { -> mkdp#util#install() } }
 
-  " Colorscheme
-  Plug 'dracula/vim', { 'as': 'dracula' }
-  Plug 'morhetz/gruvbox'
-
   " Airline
   Plug 'vim-airline/vim-airline'
   Plug 'vim-airline/vim-airline-themes'
+
+  " Paste with indentation
+  Plug 'sickill/vim-pasta'
+
+  " Repeat plugin actions
+  Plug 'tpope/vim-repeat'
+
+  " Surround
+  Plug 'tpope/vim-surround'
+
+  " JS & JSX syntax
+  Plug 'pangloss/vim-javascript'
+
 call plug#end()
-
-
 
 " -- GENERAL SETTINGS -- {
 
@@ -84,6 +81,12 @@ call plug#end()
   set hidden
   set autowrite
   set autoread
+
+  " Coc.nvim
+  set nobackup
+  set nowritebackup
+  set cmdheight=2
+  set updatetime=300
 
   " Disable mouse in all modes
   set mouse=
@@ -147,6 +150,7 @@ call plug#end()
   nnoremap gu    viwgu
   nnoremap <S-h> :tabprevious<CR>
   nnoremap <S-l> :tabnext<CR>
+  nnoremap <C-b> :NERDTreeToggle<CR>
   nnoremap <C-s> :w!<CR>
   nnoremap <C-p> "+p
 
@@ -174,12 +178,35 @@ call plug#end()
   let g:airline#extensions#branch#enabled = 1
   let g:airline_section_z = airline#section#create_right(["%{line('.')} ☰ "," %{col('.')} :"])
 
+  " Coc.nvim {
+    " use <tab> for trigger completion
+    inoremap <silent><expr> <TAB>
+          \ pumvisible() ? "\<C-n>" :
+          \ <SID>check_back_space() ? "\<TAB>" :
+          \ coc#refresh()
+    inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
+
+    function! s:check_back_space() abort
+      let col = col('.') - 1
+      return !col || getline('.')[col - 1]  =~# '\s'
+    endfunction
+
+    " use <CR> confirm completion
+    inoremap <expr> <CR> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
+
+    " extensions
+    let g:coc_global_extensions = [
+          \ 'coc-emmet',
+          \ 'coc-yank',
+          \ 'coc-pairs',
+          \ 'coc-snippets'
+          \ ]
+  " }
+
   " Ultisnips
   let g:UltiSnipsEditSplit   = 'vertical'
+  let g:UltiSnipsExpandTrigger = '<c-tab>'
   let g:UltiSnipsSnippetsDir = '~/.config/nvim/UltiSnips'
-
-  " Lorem ipsum
-  let g:loremipsum_words = 20
 
   " Vim repeat
   silent! call repeat#set("\<Plug>MyWonderfulMap", v:count)
