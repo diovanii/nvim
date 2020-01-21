@@ -1,13 +1,13 @@
-# My [Neovim](https://neovim.io/) config file
+# My [Neovim](https://neovim.io/) config file 
 
-* ##### [Installation](#install)
+* ##### [Installation](#installation)
 * ##### [Plugins](#plugins)
 * ##### [Custom airline](#custom-airline)
 
 <br>
 <br>
 
-## Installation
+## :wrench: Installation
 Clone this repo to your `.config` folder, which on my case is in `$HOME/.config`
 
 ``` bash
@@ -16,7 +16,7 @@ git clone https://github.com/diovanii/nvim $HOME/.config
 
 <br>
 
-## Plugins
+## :electric_plug: Plugins
 * **[coc.nvim](https://github.com/neoclide/coc.nvim)**
 * **[gruvbox](https://github.com/morhetz/gruvbox)**
 * **[markdown-preview](https://github.com/iamcco/markdown-preview.nvim)**
@@ -33,7 +33,7 @@ git clone https://github.com/diovanii/nvim $HOME/.config
 
 <br>
 
-## Custom [Airline](https://github.com/vim-airline/vim-airline)
+## :art: Custom [Airline](https://github.com/vim-airline/vim-airline)
 ![Custom airline print](preview.jpg)
 
 _The **`☰`** represents the current line and the **`:`** symbol represents the current column._
