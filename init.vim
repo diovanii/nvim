@@ -17,7 +17,7 @@ call plug#begin('~/.config/nvim/plugged')
   Plug 'neoclide/coc.nvim', {'branch': 'release'}
 
   " colorscheme
-  Plug 'morhetz/gruvbox'
+  Plug 'dracula/vim', { 'as': 'dracula' }
 
   " preview markdown
   Plug 'iamcco/markdown-preview.nvim', { 'do': { -> mkdp#util#install() } }
@@ -43,7 +43,6 @@ call plug#begin('~/.config/nvim/plugged')
 
   " change surround things
   Plug 'tpope/vim-surround'
-
 call plug#end()
 " }}}
 
@@ -112,7 +111,7 @@ call plug#end()
 
   " colorscheme
   set termguicolors
-  colorscheme gruvbox
+  colorscheme dracula
 
 " }}}
 
@@ -211,10 +210,21 @@ augroup END
 
   " airline
   let g:airline_powerline_fonts = 1
-  let g:airline_section_z = airline#section#create_right(["%{line('.')} ☰ "," %{col('.')} :"])
   let g:airline_section_error = 0
   let g:airline_section_warning = 0
-  let g:airline#extensions#branch#enabled = 1
+  let g:airline_section_z = airline#section#create_right([" %{line('.')} ☰ "," %{col('.')} : "])
+  let g:airline_extensions = ['branch', 'tabline']
+  let g:airline#extensions#tabline#enabled = 1
+  let g:airline#extensions#tabline#show_tabs = 0
+  let g:airline#extensions#tabline#show_tab_count = 0
+  let g:airline#extensions#tabline#exclude_preview = 0
+  let airline#extensions#tabline#disable_refresh = 0
+  let g:airline#extensions#tabline#buffers_label = ""
+  let g:airline#extensions#tabline#show_tab_type = 1
+  let g:airline#extensions#default#layout = [
+      \ [ 'a', 'b', 'c'],
+      \ [ 'z' ]
+      \ ]
 
   " coc.nvim
   let g:coc_global_extensions = [
@@ -226,7 +236,7 @@ augroup END
 
   " ultisnips
   let g:UltiSnipsExpandTrigger = 'F12'
-  let g:UltiSnipsEditSplit= 'vertical'
+  let g:UltiSnipsEditSplit = 'vertical'
   let g:UltiSnipsSnippetsDir = '~/.config/nvim/UltiSnips'
 
   " markdown preview
@@ -236,7 +246,7 @@ augroup END
   let g:mkdp_echo_preview_url = 1
 
   " vim-shex"
-  let g:shex_trigger="<Leader>r"
+  let g:shex_trigger = "<Leader>r"
 
 " }}}
 
