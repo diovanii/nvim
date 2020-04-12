@@ -235,6 +235,7 @@ snippet ul "unordered list"
 endsnippet
 
 #--------
+
 snippet php "php"
 <?php $1 ?>
 endsnippet
@@ -243,4 +244,18 @@ snippet pre "php echo pre"
 echo '<pre>';
 print_r($1);
 echo '<pre>';
+endsnippet
+
+snippet class "php class"
+class $1 {
+	public function __construct() {
+		$2
+	}
+}
+endsnippet
+
+snippet fore "foreach"
+foreach ($$1 as $key => $value) {
+
+}
 endsnippet
