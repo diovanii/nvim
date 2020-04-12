@@ -17,10 +17,16 @@ call plug#begin('~/.config/nvim/plugged')
   Plug 'neoclide/coc.nvim', {'branch': 'release'}
 
   " colorscheme
-  Plug 'dracula/vim', { 'as': 'dracula' }
+  Plug 'rakr/vim-one'
+
+  " Fuzzy finder
+  Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 
   " preview markdown
   Plug 'iamcco/markdown-preview.nvim', { 'do': { -> mkdp#util#install() } }
+
+  " auto complete (, [, {
+  Plug 'jiangmiao/auto-pairs'
 
   " snippets
   Plug 'sirver/UltiSnips'
@@ -29,17 +35,8 @@ call plug#begin('~/.config/nvim/plugged')
   Plug 'vim-airline/vim-airline'
   Plug 'vim-airline/vim-airline-themes'
 
-  " icons
-  Plug 'ryanoasis/vim-devicons'
-
-  " git status
-  Plug 'tpope/vim-fugitive'
-
   " JS and JSX syntax support
-  Plug 'pangloss/vim-javascript'
-
-  " execute shell scripts
-  Plug 'diovanii/vim-shex'
+  Plug 'sheerun/vim-polyglot'
 
   " change surround things
   Plug 'tpope/vim-surround'
@@ -74,7 +71,7 @@ call plug#end()
   set shiftwidth=2
   set softtabstop=2
   set textwidth=0
-  set wrapmargin=0
+  set nowrap
 
   " show line numbers
   set number
@@ -111,7 +108,7 @@ call plug#end()
 
   " colorscheme
   set termguicolors
-  colorscheme dracula
+  colorscheme one
 
 " }}}
 
@@ -155,8 +152,8 @@ augroup END
   nnoremap <Leader>i        O<Down><Down><Home><CR><Up><Up><Esc>
   nnoremap <Leader>s        :split<Space>
   nnoremap <Leader>v        :vsplit<Space>
-  nnoremap <Leader>t        :tabedit<Space>
-  nnoremap <Leader>q        :quit!<CR>
+  nnoremap <Leader>t        :FZF<CR>
+  nnoremap <Leader>q        :bdelete!<CR>
   nnoremap <Leader>w        :xit!<CR>
   nnoremap <Leader>m        :MarkdownPreview<CR>
   nnoremap <Leader>-        :tabedit $MYVIMRC<CR>
@@ -169,6 +166,7 @@ augroup END
   nnoremap :     ;
   nnoremap ç     ^
   nnoremap q     /
+  nnoremap <S-q> :quit!<CR>
   nnoremap <S-h> :tabprevious<CR>
   nnoremap <S-l> :tabnext<CR>
   nnoremap <C-s> :write!<CR>
@@ -213,7 +211,7 @@ augroup END
   let g:airline_section_error = 0
   let g:airline_section_warning = 0
   let g:airline_section_z = airline#section#create_right([" %{line('.')} ☰ "," %{col('.')} : "])
-  let g:airline_extensions = ['branch', 'tabline']
+  let g:airline_extensions = ['tabline']
   let g:airline#extensions#tabline#enabled = 1
   let g:airline#extensions#tabline#show_tabs = 0
   let g:airline#extensions#tabline#show_tab_count = 0
@@ -222,7 +220,7 @@ augroup END
   let g:airline#extensions#tabline#buffers_label = ""
   let g:airline#extensions#tabline#show_tab_type = 1
   let g:airline#extensions#default#layout = [
-      \ [ 'a', 'b', 'c'],
+      \ [ 'a', 'c'],
       \ [ 'z' ]
       \ ]
 
@@ -230,7 +228,6 @@ augroup END
   let g:coc_global_extensions = [
         \ 'coc-emmet',
         \ 'coc-yank',
-        \ 'coc-pairs',
         \ 'coc-snippets'
         \ ]
 
@@ -242,22 +239,12 @@ augroup END
   " markdown preview
   let g:mkdp_auto_start = 1
   let g:mkdp_auto_close = 1
-  let g:mkdp_browser = 'brave'
+  let g:mkdp_browser = 'brave-browser'
   let g:mkdp_echo_preview_url = 1
-
-  " vim-shex"
-  let g:shex_trigger = "<Leader>r"
 
 " }}}
 
 " Functions: {{{
-" open terminal in a quickfix-window
-function! OpenTerminal()
-  execute "copen 10 | terminal "
-  setlocal nonumber
-  setlocal norelativenumber
-  startinsert
-endfunction
 
 " coc.nvim
 function! s:check_back_space() abort
