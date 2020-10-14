@@ -17,10 +17,7 @@ call plug#begin('~/.config/nvim/plugged')
   Plug 'neoclide/coc.nvim', {'branch': 'release'}
 
   " colorscheme
-  Plug 'rakr/vim-one'
-
-  " Fuzzy finder
-  Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
+  Plug 'dracula/vim', { 'name': 'dracula' }
 
   " preview markdown
   Plug 'iamcco/markdown-preview.nvim', { 'do': { -> mkdp#util#install() } }
@@ -108,7 +105,7 @@ call plug#end()
 
   " colorscheme
   set termguicolors
-  colorscheme one
+  colorscheme dracula
 
 " }}}
 
@@ -152,13 +149,13 @@ augroup END
   nnoremap <Leader>i        O<Down><Down><Home><CR><Up><Up><Esc>
   nnoremap <Leader>s        :split<Space>
   nnoremap <Leader>v        :vsplit<Space>
-  nnoremap <Leader>t        :FZF<CR>
-  nnoremap <Leader>q        :bdelete!<CR>
+  nnoremap <Leader>t        :tabedit<Space>
+  nnoremap <Leader>q        :quit!<CR>
   nnoremap <Leader>w        :xit!<CR>
   nnoremap <Leader>m        :MarkdownPreview<CR>
   nnoremap <Leader>-        :tabedit $MYVIMRC<CR>
   nnoremap <Leader>0        :source $MYVIMRC<CR>
-  nnoremap <Leader><CR>     :call OpenTerminal()<CR>
+  nnoremap <Leader><CR>     :!<Space>
   nnoremap <Leader><Leader> :nohlsearch<CR>
 
   " normal mode keymaps
